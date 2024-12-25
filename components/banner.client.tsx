@@ -6,7 +6,7 @@ export default function Banner() {
   const handleOnClick = () => {
     console.log("oli");
   };
-  
+
   return (
     <div className="mb-12 grid lg:mb-24 lg:grid-cols-2">
       <div className="z-20 flex flex-col px-2 md:pt-12">

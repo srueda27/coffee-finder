@@ -10,7 +10,7 @@ const IBMPlexSans = IBM_Plex_Sans({
 
 export const metadata: Metadata = {
   title: "Coffee Finder",
-  description: "Find your local coffee shops",
+  description: "Encuentra tu cafetería más cercana",
 };
 
 export default function RootLayout({
