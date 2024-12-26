@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-export default function Page(props: { params: { id: string } }) {
-  const {
+export default function Page() {
+  /* const {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     params: { id },
-  } = props;
+  } = props; */
 
   return (
     <div className="h-full pb-80">
