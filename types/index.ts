@@ -12,4 +12,5 @@ export type coffee_store = {
   id: string;
   address: string;
   imgUrl: string;
+  imgId: string;
 }

@@ -59,7 +59,7 @@ export default async function Home() {
                 key={`${coffeeStore.name}-${coffeeStore.id}`}
                 name={coffeeStore.name}
                 imgUrl={coffeeStore.imgUrl}
-                href={`/coffee-store/${coffeeStore.id}`}
+                href={`/coffee-store/${coffeeStore.id}?idx=${coffeeStore.imgId}`}
               />
             ))}
           </div>

@@ -1,11 +1,13 @@
 import { fecthCoffeeStore, fecthCoffeeStores } from "@/lib/coffee-stores";
-// import { fecthCoffeeStore } from "@/lib/coffee-stores";
 import Link from "next/link";
 import Image from "next/image";
 import { coffee_store } from "@/types";
 
-async function getData(id: string): Promise<coffee_store | undefined> {
-  return await fecthCoffeeStore(id);
+async function getData(
+  id: string,
+  imgId: string
+): Promise<coffee_store | undefined> {
+  return await fecthCoffeeStore(id, imgId);
 }
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
@@ -18,12 +20,15 @@ export async function generateStaticParams(): Promise<{ id: string }[]> {
 
 export default async function Page({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ idx: string }>;
 }) {
   const { id } = await params;
+  const { idx } = await searchParams;
 
-  const coffeeStore = await getData(id);
+  const coffeeStore = await getData(id, idx);
 
   return (
     <div className="h-full pb-80">
@@ -50,7 +55,7 @@ export default async function Page({
 
         <div className={`glass mt-12 flex-col rounded-lg p-4 lg:mt-48`}>
           <div className="mb-4 flex">
-            <Image src="" width="24" height="24" alt="places icon" />
+            <Image src="/static/icons/places.svg" width="24" height="24" alt="places icon" />
             <p className="pl-2">{(coffeeStore && coffeeStore.address) || ""}</p>
           </div>
         </div>
