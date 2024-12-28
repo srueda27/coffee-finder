@@ -1,6 +1,7 @@
 import Banner from "@/components/banner.client";
 import Card from "@/components/card.server";
-import { coffee_store, fecthCoffeeStores } from "@/lib/coffee-stores";
+import { fecthCoffeeStores } from "@/lib/coffee-stores";
+import { coffee_store } from "@/types";
 
 async function getData() {
   return await fecthCoffeeStores()
@@ -53,12 +54,12 @@ export default async function Home() {
             Cafeterías en Cali
           </h2>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-2 lg:grid-cols-3 lg:gap-6">
-            {data?.map((coffeeStore: coffee_store, index: number) => (
+            {data?.map((coffeeStore: coffee_store) => (
               <Card
-                key={`${coffeeStore.name}-${index}`}
+                key={`${coffeeStore.name}-${coffeeStore.id}`}
                 name={coffeeStore.name}
                 imgUrl={coffeeStore.imgUrl}
-                href={`/coffee-store/${index}`}
+                href={`/coffee-store/${coffeeStore.id}`}
               />
             ))}
           </div>
