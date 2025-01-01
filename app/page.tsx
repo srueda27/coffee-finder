@@ -1,10 +1,13 @@
-import Banner from "@/components/banner.client";
 import Card from "@/components/card.server";
+import NearbyCoffeeStores from "@/components/nearby-coffe-stores.client";
 import { fecthCoffeeStores } from "@/lib/coffee-stores";
 import { coffee_store } from "@/types";
 
+const caliLongLat = "3.43722,-76.5225"
+// const torontoLongLat = "43.651070,-79.347015"
+
 async function getData() {
-  return await fecthCoffeeStores()
+  return await fecthCoffeeStores(6, caliLongLat);
 }
 
 export default async function Home() {
@@ -46,9 +49,7 @@ export default async function Home() {
   return (
     <div className="mb-16">
       <main className="mx-auto mt-10 max-w-6xl px-4">
-        {/* <main className="flex min-h-screen flex-col items-center justify-between p-14"> */}
-        <Banner />
-        {/* <Link href={`/coffee-store/${coffeeStoreId}`}>Café Condor</Link> */}
+        <NearbyCoffeeStores />
         <div className="mt-20">
           <h2 className="mt-8 pb-8 text-4xl font-bold text-white">
             Cafeterías en Cali

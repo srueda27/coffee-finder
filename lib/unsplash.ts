@@ -9,7 +9,7 @@ export const getCoffeePhotos = async () => {
   try {
     const response = await unsplash.search.getPhotos({
       query: 'coffee shop',
-      page: 1,
+      page: Math.floor(Math.random() * 5) + 1,
       perPage: 10
     })
 

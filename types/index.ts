@@ -14,3 +14,10 @@ export type coffee_store = {
   imgUrl: string;
   imgId: string;
 }
+
+export type PositionType = {
+  coords: {
+    latitude: number
+    longitude: number
+  }
+}

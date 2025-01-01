@@ -1,20 +1,31 @@
 import { coffee_store, gps_point } from "@/types";
 import { getCoffeePhoto, getCoffeePhotos } from "./unsplash";
 
-export const fecthCoffeeStores = async (): Promise<coffee_store[] | undefined> => {
-  // mapbox api
-  try {
-    const overPassURL = `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="cafe"](around:10000,3.4712874196221435,-76.50939615440562);out 20;`;
+const overPassURL = "https://overpass-api.de/api/interpreter";
+const overPassURL_2 = "https://overpass.kumi.systems/api/interpreter";
 
-    const response = await fetch(overPassURL)
+export const fecthCoffeeStores = async (limit: number, longLat: string): Promise<coffee_store[] | []> => {
+  const parameters = `data=[out:json];node["amenity"="cafe"](around:10000,${longLat});out ${limit * 3};`
+
+  let json = await fetchUrl(`${overPassURL}?${parameters}`)
+
+  if (!json) json = await fetchUrl(`${overPassURL_2}?${parameters}`)
+
+  const data = json.elements.filter((point: gps_point) => point.tags["addr:street"]) as gps_point[]
+  const photos = await getCoffeePhotos()
+
+  return data.map((point: gps_point, idx: number) => transformData(point, photos!, idx)).slice(0, limit);
+}
+
+const fetchUrl = async (url: string) => {
+  try {
+    const response = await fetch(url)
     const json = await response.json()
 
-    const data = json.elements.filter((point: gps_point) => point.tags["addr:street"])
-    const photos = await getCoffeePhotos()
-
-    return data.map((point: gps_point, idx: number) => transformData(point, photos!, idx));
+    return json
   } catch (error) {
-    console.log('Error while fetching coffee stores ', error)
+    console.log(`Error while fetching ${url} `, error)
+    return undefined
   }
 }
 
@@ -29,16 +40,13 @@ const transformData = (point: gps_point, photos: { imgUrl: string, imgId: string
 }
 
 export const fecthCoffeeStore = async (id: string, imgId: string): Promise<coffee_store | undefined> => {
-  const url = `https://overpass-api.de/api/interpreter?data=[out:json];node(${id});out;`
+  const parameters = `data=[out:json];node(${id});out;`
 
-  try {
-    const response = await fetch(url)
-    const json = await response.json()
+  let json = await fetchUrl(`${overPassURL}?${parameters}`)
 
-    const photo = await getCoffeePhoto(imgId)
+  if (!json) json = await fetchUrl(`${overPassURL_2}?${parameters}`)
 
-    return json.elements[0] ? transformData(json.elements[0], photo!.urls.small) : undefined
-  } catch (error) {
-    console.log(`Error while fetching coffee store id: ${id}`, error)
-  }
+  const photo = await getCoffeePhoto(imgId)
+
+  return json.elements[0] ? transformData(json.elements[0], photo!.urls.small) : undefined
 }
