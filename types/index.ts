@@ -13,6 +13,7 @@ export type coffee_store = {
   address: string;
   imgUrl: string;
   imgId: string;
+  voting?: number
 }
 
 export type PositionType = {

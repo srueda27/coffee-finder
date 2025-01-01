@@ -2,6 +2,7 @@ import { fecthCoffeeStore, fecthCoffeeStores } from "@/lib/coffee-stores";
 import Link from "next/link";
 import Image from "next/image";
 import { coffee_store } from "@/types";
+import { createCoffeeStore } from "@/lib/airtable";
 
 const caliLongLat = "3.43722,-76.5225";
 // const torontoLongLat = "43.651070,-79.347015"
@@ -10,7 +11,10 @@ async function getData(
   id: string,
   imgId: string
 ): Promise<coffee_store | undefined> {
-  return await fecthCoffeeStore(id, imgId);
+  const coffeStoresMap = await fecthCoffeeStore(id, imgId);
+  createCoffeeStore(coffeStoresMap!, id)
+
+  return coffeStoresMap;
 }
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {

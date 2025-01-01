@@ -35,7 +35,7 @@ const transformData = (point: gps_point, photos: { imgUrl: string, imgId: string
     id: point.id,
     address: `${point.tags["addr:street"]}${point.tags["addr:housenumber"] ? ' # ' + point.tags["addr:housenumber"] : ''}`,
     imgUrl: typeof photos === 'string' ? photos : photos[idx].imgUrl,
-    imgId: typeof photos === 'string' ? photos : photos[idx].imgId
+    imgId: typeof photos === 'string' ? photos : photos[idx].imgId,
   }
 }
 
@@ -48,5 +48,5 @@ export const fecthCoffeeStore = async (id: string, imgId: string): Promise<coffe
 
   const photo = await getCoffeePhoto(imgId)
 
-  return json.elements[0] ? transformData(json.elements[0], photo!.urls.small) : undefined
+  return json.elements[0] ? transformData(json.elements[0], [{ imgUrl: photo!.urls.small, imgId }]) : undefined
 }

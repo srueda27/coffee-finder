@@ -27,7 +27,6 @@ export const getCoffeePhoto = async (imgId: string) => {
   try {
     const response = await unsplash.photos.get({ photoId: imgId })
 
-
     return response.response
   } catch (error) {
     throw new Error('Error happened during getting one photo: ' + error)
