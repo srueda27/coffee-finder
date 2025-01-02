@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+import LocationProviderWrapper from "@/components/LocationProviderWrapper";
 
 const IBMPlexSans = IBM_Plex_Sans({
-  display: 'swap',
+  display: "swap",
   subsets: ["latin"],
-  weight: ['400', '500', '600', '700']
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -20,10 +21,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${IBMPlexSans.className} antialiased`}
-      >
-        {children}
+      <body className={`${IBMPlexSans.className} antialiased`}>
+        <LocationProviderWrapper>{children}</LocationProviderWrapper>
       </body>
     </html>
   );

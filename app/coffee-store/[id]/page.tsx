@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { coffee_store } from "@/types";
 import { createCoffeeStore } from "@/lib/airtable";
+import Upvote from "@/components/upvote.client";
 
 const caliLongLat = "3.43722,-76.5225";
 // const torontoLongLat = "43.651070,-79.347015"
@@ -11,10 +12,10 @@ async function getData(
   id: string,
   imgId: string
 ): Promise<coffee_store | undefined> {
-  const coffeStoresMap = await fecthCoffeeStore(id, imgId);
-  createCoffeeStore(coffeStoresMap!, id)
+  const coffeeStoresMap = await fecthCoffeeStore(id, imgId);
+  const coffeeStore = await createCoffeeStore(coffeeStoresMap!, id);
 
-  return coffeStoresMap;
+  return coffeeStore && coffeeStore[0].fields;
 }
 
 export async function generateStaticParams(): Promise<{ id: string }[]> {
@@ -36,7 +37,7 @@ export default async function Page({
   const { idx } = await searchParams;
 
   const coffeeStore = await getData(id, idx);
-
+  
   return (
     <div className="h-full pb-80">
       <div className="m-auto grid max-w-full px-12 py-12 lg:max-w-6xl lg:grid-cols-2 lg:gap-4">
@@ -50,7 +51,7 @@ export default async function Page({
                 {(coffeeStore && coffeeStore.name) || ""}
               </h1>
             </div>
-            <div className="col-span-2 grid grid-cols-2 gap-2 my-4">
+            <div className="col-span-2 grid md:grid-cols-2 gap-2 my-4">
               <Image
                 src={(coffeeStore && coffeeStore.imgUrl) || ""}
                 width={740}
@@ -60,16 +61,19 @@ export default async function Page({
                 blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAACgCAYAAADq8hJGAAABdUlEQVR42u3UQQEAAAQEMPpnkfGI4bGFWFcyBXBaCIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEACAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAPlkQXquQn3IerAAAAABJRU5ErkJggg=="
                 placeholder="blur"
               />
-              <div className={`glass rounded-lg p-4 flex h-fit`}>
-                <Image
-                  src="/static/icons/places.svg"
-                  width="24"
-                  height="24"
-                  alt="places icon"
-                />
-                <p className="pl-2">
-                  {(coffeeStore && coffeeStore.address) || ""}
-                </p>
+              <div className={`glass rounded-lg p-4 flex flex-col h-fit`}>
+                <div className="flex">
+                  <Image
+                    src="/static/icons/places.svg"
+                    width="24"
+                    height="24"
+                    alt="places icon"
+                  />
+                  <p className="pl-2">
+                    {(coffeeStore && coffeeStore.address) || ""}
+                  </p>
+                </div>
+                <Upvote votes={coffeeStore && coffeeStore.voting || 0} />
               </div>
             </div>
           </div>

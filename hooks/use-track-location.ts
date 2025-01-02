@@ -3,9 +3,9 @@
 import { PositionType } from "@/types";
 import { useState } from "react";
 
-export const useTrackLocation = () => {
+export const useTrackLocation = (setLongLat: React.Dispatch<React.SetStateAction<string | null>>) => {
   const [isFindingLocation, setIsFindingLocation] = useState(false)
-  const [longLat, setLongLat] = useState('')
+  // const [longLat, setLongLat] = useState('')
   const [locationErrorMsg, setLocationErrorMsg] = useState('')
 
   function success(position: PositionType) {
@@ -36,7 +36,7 @@ export const useTrackLocation = () => {
   return {
     handleTrackLocation,
     isFindingLocation,
-    longLat,
+    // longLat,
     locationErrorMsg
   }
 }

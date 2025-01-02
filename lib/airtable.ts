@@ -27,10 +27,10 @@ const findRecordByFilter = async (id: string) => {
 
 export const createCoffeeStore = async (coffee_store: coffee_store, id: string) => {
   const record = await findRecordByFilter(id)
-  
+
   if (record?.length) {
     console.log('Coffee Store already exists')
-    return
+    return record
   }
 
   try {
@@ -40,7 +40,7 @@ export const createCoffeeStore = async (coffee_store: coffee_store, id: string) 
         id: `${coffee_store.id}`,
         name: coffee_store.name,
         address: coffee_store.address,
-        voting: coffee_store.voting || 0,
+        voting: coffee_store.voting,
         imgUrl: coffee_store.imgUrl,
         imgId: coffee_store.imgId,
       }

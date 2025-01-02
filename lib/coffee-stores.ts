@@ -36,6 +36,7 @@ const transformData = (point: gps_point, photos: { imgUrl: string, imgId: string
     address: `${point.tags["addr:street"]}${point.tags["addr:housenumber"] ? ' # ' + point.tags["addr:housenumber"] : ''}`,
     imgUrl: typeof photos === 'string' ? photos : photos[idx].imgUrl,
     imgId: typeof photos === 'string' ? photos : photos[idx].imgId,
+    voting: 0
   }
 }
 
