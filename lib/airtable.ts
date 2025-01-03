@@ -50,7 +50,7 @@ export const createCoffeeStore = async (coffee_store: coffee_store, id: string) 
 
     return getFields(createdCoffeeStore)
   } catch (error) {
-    console.error(error)
+    console.error('An error occured saving a coffee store in Airtable', error)
   }
 }
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { coffee_store } from "@/types";
 import { createCoffeeStore } from "@/lib/airtable";
 import Upvote from "@/components/upvote.client";
+import { redirect } from "next/navigation";
 
 const caliLongLat = "3.43722,-76.5225";
 // const torontoLongLat = "43.651070,-79.347015"
@@ -13,7 +14,10 @@ async function getData(
   imgId: string
 ): Promise<coffee_store | undefined> {
   const coffeeStoresMap = await fecthCoffeeStore(id, imgId);
-  const coffeeStore = await createCoffeeStore(coffeeStoresMap!, id);
+
+  if (!coffeeStoresMap) return
+
+  const coffeeStore = await createCoffeeStore(coffeeStoresMap, id);
 
   return coffeeStore && coffeeStore[0].fields;
 }
@@ -37,7 +41,9 @@ export default async function Page({
   const { idx } = await searchParams;
 
   const coffeeStore = await getData(id, idx);
-  
+  // if (!coffeeStore) throw new Error('something went wrong OLI');
+  if (!coffeeStore) redirect("/not-found");
+
   return (
     <div className="h-full pb-80">
       <div className="m-auto grid max-w-full px-12 py-12 lg:max-w-6xl lg:grid-cols-2 lg:gap-4">
@@ -73,7 +79,10 @@ export default async function Page({
                     {(coffeeStore && coffeeStore.address) || ""}
                   </p>
                 </div>
-                <Upvote votes={coffeeStore && coffeeStore.voting || 0} coffee_store_id={id}/>
+                <Upvote
+                  votes={(coffeeStore && coffeeStore.voting) || 0}
+                  coffee_store_id={id}
+                />
               </div>
             </div>
           </div>
