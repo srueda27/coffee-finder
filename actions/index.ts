@@ -8,7 +8,6 @@ type State = {
 }
 
 export const upvoteAction = async (state: State) => {
-  console.log('upvote action')
   const { coffee_store_id, votes } = state
 
   const coffee_store_record = await updateCoffeeStore(coffee_store_id)

@@ -55,7 +55,6 @@ export const createCoffeeStore = async (coffee_store: coffee_store, id: string) 
 }
 
 export const updateCoffeeStore = async (coffeeStoreId: string) => {
-  console.log('update airtable')
   let record: {
     recordId: string;
     fields: coffee_store;
@@ -63,8 +62,6 @@ export const updateCoffeeStore = async (coffeeStoreId: string) => {
     recordId: string;
     fields: coffee_store;
   } | undefined = await findRecordByFilter(coffeeStoreId)
-
-  console.log('record: ', record)
 
   if (!record?.length) {
     console.log('Coffee Store does not exists')
