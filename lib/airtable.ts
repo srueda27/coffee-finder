@@ -13,6 +13,7 @@ const getFields = (records: Records<FieldSet>) => {
     }
   })
 }
+
 const findRecordByFilter = async (id: string) => {
   try {
     const findRecords = await table.select({
@@ -48,6 +49,40 @@ export const createCoffeeStore = async (coffee_store: coffee_store, id: string) 
     console.log('Coffee Store created')
 
     return getFields(createdCoffeeStore)
+  } catch (error) {
+    console.error(error)
+  }
+}
+
+export const updateCoffeeStore = async (coffeeStoreId: string) => {
+  console.log('update airtable')
+  let record: {
+    recordId: string;
+    fields: coffee_store;
+  }[] | {
+    recordId: string;
+    fields: coffee_store;
+  } | undefined = await findRecordByFilter(coffeeStoreId)
+
+  console.log('record: ', record)
+
+  if (!record?.length) {
+    console.log('Coffee Store does not exists')
+    return
+  }
+
+  record = record[0]
+
+  try {
+    const updateCoffeeStore = await table.update([{
+      id: record.recordId,
+      fields: {
+        voting: record.fields.voting + 1,
+      }
+    }])
+    console.log('updated CoffeeStore')
+
+    return getFields(updateCoffeeStore)[0]
   } catch (error) {
     console.error(error)
   }

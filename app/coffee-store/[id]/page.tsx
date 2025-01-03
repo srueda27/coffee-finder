@@ -73,7 +73,7 @@ export default async function Page({
                     {(coffeeStore && coffeeStore.address) || ""}
                   </p>
                 </div>
-                <Upvote votes={coffeeStore && coffeeStore.voting || 0} />
+                <Upvote votes={coffeeStore && coffeeStore.voting || 0} coffee_store_id={id}/>
               </div>
             </div>
           </div>
