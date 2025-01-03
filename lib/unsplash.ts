@@ -10,7 +10,8 @@ export const getCoffeePhotos = async () => {
     const response = await unsplash.search.getPhotos({
       query: 'coffee shop',
       page: Math.floor(Math.random() * 5) + 1,
-      perPage: 10
+      perPage: 10,
+      orientation: "landscape"
     })
 
 

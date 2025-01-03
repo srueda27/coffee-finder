@@ -18,13 +18,12 @@ export default function Card({ name, imgUrl, href }: CardType) {
             {name}
           </h2>
         </div>
-        <div className="">
+        <div className="relative w-full h-48">
           <Image
-            className="max-h-[200px] min-h-[200px] rounded-lg shadow-lg"
+            className="max-h-[200px] min-h-[200px] rounded-lg shadow-lg object-cover"
             src={imgUrl}
-            width={260}
-            height={160}
-            alt={name}
+            fill
+            alt='Coffee Store Image'
             blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQQAAACgCAYAAADq8hJGAAABdUlEQVR42u3UQQEAAAQEMPpnkfGI4bGFWFcyBXBaCIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEACAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAhAAIARACIARACIAQACEAQgCEAAgBEAIgBEAIgBCEAAgBEAIgBEAIgBAAIQBCAIQACAEQAiAEQAiAEAAhAEIAPlkQXquQn3IerAAAAABJRU5ErkJggg=="
             placeholder="blur"
           />
