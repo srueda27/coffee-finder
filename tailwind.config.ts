@@ -10,7 +10,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-          gradient: "url('/static/mesh-gradient.png')"
+          gradient: "url('/static/mesh-gradient.webp')"
       },
       colors: {
         purple: {
