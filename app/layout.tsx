@@ -28,6 +28,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${IBMPlexSans.className} antialiased`}>
         <LocationProviderWrapper>{children}</LocationProviderWrapper>
+        <footer className="mt-auto bg-violet-900 py-6 text-lg text-white">
+          <div className="text-center">By Santiago Rueda Ortiz</div>
+        </footer>
       </body>
     </html>
   );
