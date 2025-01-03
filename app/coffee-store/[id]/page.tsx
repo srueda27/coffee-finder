@@ -69,10 +69,10 @@ export default async function Page({
   if (!coffeeStore) redirect("/not-found");
 
   return (
-    <div className="h-full pb-80">
+    <div className="h-full pb-40">
       <div className="m-auto grid max-w-full px-12 py-12 lg:max-w-6xl lg:grid-cols-2 lg:gap-4">
         <div className="col-span-2">
-          <div className="mb-2 mt-24 text-lg font-bold">
+          <div className="mb-2 mt-12 text-lg font-bold">
             <Link href="/">← Volver a Inicio</Link>
           </div>
           <div className="grid md:grid-cols-2">
