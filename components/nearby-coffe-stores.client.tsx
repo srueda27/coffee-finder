@@ -41,7 +41,7 @@ export default function NearbyCoffeeStores() {
     <div>
       <Banner
         handleOnClick={handleOnClick}
-        buttonText={isFindingLocation ? "Locating..." : "View stores nearby"}
+        buttonText={isFindingLocation ? "Buscando..." : "Encontrar cafeterías cercanas"}
       />
       {locationErrorMsg && <p>Error: {locationErrorMsg}</p>}
       {longLat && (

@@ -18,7 +18,7 @@ export default function Banner({
           <span className="text-gray-900">Finder</span>
         </h1>
         <p className="font-sans text-xl font-semibold text-gray-900 md:mt-5 lg:text-2xl">
-          Discover your local coffee shops!
+          Encuentra tu cafetería más cercanas!
         </p>
 
         <div className="mt-12">

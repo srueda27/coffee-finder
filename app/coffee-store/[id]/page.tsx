@@ -5,6 +5,7 @@ import { coffee_store } from "@/types";
 import { createCoffeeStore } from "@/lib/airtable";
 import Upvote from "@/components/upvote.client";
 import { redirect } from "next/navigation";
+import { getDomain } from "@/utils";
 
 const caliLongLat = "3.43722,-76.5225";
 // const torontoLongLat = "43.651070,-79.347015"
@@ -15,7 +16,7 @@ async function getData(
 ): Promise<coffee_store | undefined> {
   const coffeeStoresMap = await fecthCoffeeStore(id, imgId);
 
-  if (!coffeeStoresMap) return
+  if (!coffeeStoresMap) return;
 
   const coffeeStore = await createCoffeeStore(coffeeStoresMap, id);
 
@@ -28,6 +29,29 @@ export async function generateStaticParams(): Promise<{ id: string }[]> {
   return coffeeStores.map((coffeeStore: coffee_store) => ({
     id: `${coffeeStore.id}`,
   }));
+}
+
+export async function generateMetadata({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ idx: string }>;
+}) {
+  const { id } = await params;
+  const { idx } = await searchParams;
+
+  const coffeeStoresMap = await fecthCoffeeStore(id, idx);
+  const { name = "" } = coffeeStoresMap || {};
+
+  return {
+    title: name,
+    description: `${name} - Coffee Store`,
+    metadataBase: getDomain(),
+    alternates: {
+      canonical: `/coffee-store/${id}?idx=${idx}`,
+    },
+  };
 }
 
 export default async function Page({
@@ -49,7 +73,7 @@ export default async function Page({
       <div className="m-auto grid max-w-full px-12 py-12 lg:max-w-6xl lg:grid-cols-2 lg:gap-4">
         <div className="col-span-2">
           <div className="mb-2 mt-24 text-lg font-bold">
-            <Link href="/">← Back to home</Link>
+            <Link href="/">← Volver a Inicio</Link>
           </div>
           <div className="grid md:grid-cols-2">
             <div className="my-4">

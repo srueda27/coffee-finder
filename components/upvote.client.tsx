@@ -9,7 +9,7 @@ function SubmitButton() {
   const { pending } = useFormStatus();
 
   return (
-    <button type="submit" disabled={pending} className="min-w-[120px]">
+    <button type="submit" disabled={pending} className="min-w-[90px]">
       {pending ? (
         <Image
           src="/static/icons/loading-spinner.svg"
@@ -19,7 +19,7 @@ function SubmitButton() {
           className="m-auto"
         />
       ) : (
-        "Up Vote!"
+        "Like"
       )}
     </button>
   );
